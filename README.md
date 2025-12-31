@@ -119,7 +119,7 @@ docker run -p 5000:5000 blog-api
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/NightOwl366/REST-API-for-a-Blog-System.git
+   git clone https://github.com/stillnight88/REST-API-for-a-Blog-System.git
    cd rest-api-for-a-blog-system
    ```
 
