@@ -1,310 +1,186 @@
-# REST API for a Blog System
+# Dockerized Blog API
 
-A full-featured RESTful API for a blog system built with Node.js, Express, and MongoDB. This project was created as a learning exercise to understand Docker containerization and deployment workflows on Render.
+A backend-only blog API built with Node.js, Express, and MongoDB.
 
-## 🎯 Project Purpose
+This project was created to explore Docker containerization and deployment workflows. The blog system serves as a practical application for learning how to package, configure, and deploy a Node.js API using Docker and Render.
 
-This project was primarily built to learn and practice:
-- Docker containerization
-- Backend deployment using Docker
-- Cloud deployment on Render
-- RESTful API design patterns
-- Authentication and authorization workflows
+---
 
-## 🚀 Live Demo
+## Project Context
 
-**Note:** The deployment link is currently suspended.
-- **URL:** https://rest-api-for-a-blog-system.onrender.com
+The primary focus of this repository was learning:
 
-## 🛠️ Tech Stack
+* Docker fundamentals
+* Containerizing Node.js applications
+* Environment variable management
+* Cloud deployment using Render
+* REST API development with Express
+* JWT-based authentication
 
-- **Runtime:** Node.js 18
-- **Framework:** Express.js 5
-- **Database:** MongoDB (MongoDB Atlas)
-- **Authentication:** JWT (JSON Web Tokens)
-- **Password Hashing:** bcrypt
-- **Validation:** validator.js
-- **Containerization:** Docker
-- **Deployment:** Render
+The blog functionality exists as a sample application used to practice these deployment concepts.
 
-## 📋 Features
+---
+
+## Features
 
 ### Authentication
-- User registration with validation
-- Secure login with JWT tokens
-- Password hashing with bcrypt
-- Token-based authentication middleware
+
+* User registration
+* User login
+* JWT-based authentication
+* Password hashing with bcrypt
+* Protected routes
 
 ### Blog Posts
-- Create, read, update, and delete posts (CRUD operations)
-- Post ownership validation
-- Pagination support for listing posts
-- Author information populated with posts
+
+* Create posts
+* Retrieve posts
+* Update posts
+* Delete posts
+* Author ownership validation
 
 ### Security
-- JWT-based authentication
-- Protected routes
-- Ownership verification for post modifications
-- Input validation
 
-## 📁 Project Structure
+* JWT authentication middleware
+* Password hashing
+* Route protection
+* Basic request validation
 
-```
-├── controllers/
-│   ├── authController.js       # Authentication logic
-│   └── postController.js       # Blog post operations
-├── middleware/
-│   ├── authMiddleware.js       # JWT verification
-│   └── ownershipMiddleware.js  # Post ownership checks
-├── models/
-│   ├── User.js                 # User schema
-│   └── Post.js                 # Post schema
-├── routes/
-│   ├── authRoutes.js           # Auth endpoints
-│   ├── postRoutes.js           # Post endpoints
-│   └── healthRoutes.js         # Health check
-├── utils/
-│   ├── validateUser.js         # User input validation
-│   └── validatePost.js         # Post input validation
-├── views/                      # EJS templates
-├── public/                     # Static files
-├── app.js                      # Application entry point
-├── Dockerfile                  # Docker configuration
-└── package.json
-```
+---
 
-## 🐳 Docker Setup
+## Tech Stack
 
-### Dockerfile
+### Backend
 
-```dockerfile
-# Use official Node.js 18 image
-FROM node:18
+* Node.js
+* Express.js
 
-# Set working directory inside container
-WORKDIR /app
+### Database
 
-# Copy package.json and install dependencies
-COPY package*.json ./
-RUN npm install
+* MongoDB
+* Mongoose
 
-# Copy all remaining source code
-COPY . .
+### Authentication
 
-# Expose app port
-EXPOSE 5000
+* JSON Web Tokens (JWT)
+* bcrypt
 
-# Start the app
-CMD ["npm", "start"]
+### Infrastructure
+
+* Docker
+* Render
+
+---
+
+## Project Structure
+
+```text
+controllers/    Request handling logic
+middleware/     Authentication and authorization
+models/         MongoDB schemas
+routes/         API routes
+utils/          Validation and helper functions
+views/          Server-rendered templates
+public/         Static assets
+app.js          Application entry point
+Dockerfile      Docker configuration
 ```
 
-### Building and Running with Docker
+---
+
+## Installation
+
+### Prerequisites
+
+* Node.js
+* MongoDB Atlas account or local MongoDB instance
+* Docker (optional)
+
+### Clone the Repository
 
 ```bash
-# Build the Docker image
-docker build -t blog-api .
+git clone <repository-url>
+cd dockerized-blog-api
+```
 
-# Run the container
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Create Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=1d
+```
+
+### Start the Application
+
+```bash
+npm start
+```
+
+The server will be available at:
+
+```text
+http://localhost:5000
+```
+
+---
+
+## Docker Usage
+
+Build the Docker image:
+
+```bash
+docker build -t blog-api .
+```
+
+Run the container:
+
+```bash
 docker run -p 5000:5000 blog-api
 ```
 
-## 🔧 Local Setup
+---
 
-### Prerequisites
-- Node.js (v18 or higher)
-- MongoDB Atlas account or local MongoDB instance
-- npm or yarn
+## Deployment Notes
 
-### Installation
+This project was deployed to Render using Docker as part of the learning process.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/stillnight88/REST-API-for-a-Blog-System.git
-   cd rest-api-for-a-blog-system
-   ```
+The deployment may not always be available due to inactive free-tier services or suspended deployments.
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+---
 
-3. **Configure environment variables**
-   
-   Create a `.env` file in the root directory:
-   ```env
-   PORT=5000
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret_key
-   JWT_EXPIRES_IN=1d
-   ```
+## Limitations
 
-4. **Start the application**
-   ```bash
-   npm start
-   ```
+This repository reflects an early learning project and is intentionally simple.
 
-The API will be running at `http://localhost:5000`
+Current limitations include:
 
-## 📡 API Endpoints
+* No automated test suite
+* No API documentation (Swagger/OpenAPI)
+* No rate limiting
+* No refresh token implementation
+* No CI/CD pipeline
+* Limited validation compared to production-grade systems
 
-### Authentication
+---
 
-#### Register User
-```http
-POST /auth/signup
-Content-Type: application/json
+## Repository Status
 
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "phone": "+1234567890",
-  "password": "password123"
-}
-```
+This repository is preserved as a learning project demonstrating:
 
-#### Login
-```http
-POST /auth/login
-Content-Type: application/json
+* Express API development
+* MongoDB integration
+* JWT authentication
+* Docker containerization
+* Basic cloud deployment workflows
 
-{
-  "email": "john@example.com",
-  "password": "password123"
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "message": "Login successful",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": {
-    "id": "user_id",
-    "name": "John Doe",
-    "email": "john@example.com"
-  }
-}
-```
-
-### Blog Posts
-
-#### Get All Posts
-```http
-GET /api/post?page=1&limit=10&sort=-createdAt
-```
-
-#### Get Post by ID
-```http
-GET /api/post/:id
-```
-
-#### Create Post (Protected)
-```http
-POST /api/posts
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "title": "My Blog Post",
-  "content": "This is the content of my blog post..."
-}
-```
-
-#### Update Post (Protected)
-```http
-PUT /api/posts/:id
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "title": "Updated Title",
-  "content": "Updated content..."
-}
-```
-
-#### Delete Post (Protected)
-```http
-DELETE /api/posts/:id
-Authorization: Bearer <token>
-```
-
-### Health Check
-```http
-GET /health
-```
-
-## 🔐 Authentication
-
-Protected routes require a JWT token in the Authorization header:
-
-```
-Authorization: Bearer your_jwt_token_here
-```
-
-## 📊 Database Models
-
-### User Model
-- `name`: String (required, 2-25 characters)
-- `email`: String (required, unique, validated)
-- `phone`: String (required, unique, validated)
-- `password`: String (required, min 6 characters, hashed)
-- `createdAt`: Date (auto-generated)
-
-### Post Model
-- `title`: String (required, max 25 characters)
-- `content`: String (required)
-- `author`: ObjectId (reference to User)
-- `createdAt`: Date (auto-generated)
-- `updatedAt`: Date (auto-generated)
-
-## 🚀 Deployment on Render
-
-This project is deployed on Render using Docker:
-
-1. Push your code to GitHub
-2. Connect your repository to Render
-3. Select "Docker" as the environment
-4. Configure environment variables in Render dashboard
-5. Deploy
-
-Render automatically builds the Docker image and deploys the container.
-
-## 🎓 Learning Outcomes
-
-Through this project, I learned:
-- How to containerize a Node.js application with Docker
-- Writing efficient Dockerfiles
-- Deploying containerized applications to cloud platforms
-- Managing environment variables in production
-- Best practices for REST API design
-- JWT-based authentication implementation
-- MongoDB integration and schema design
-
-## 🔮 Future Improvements
-
-Potential enhancements (may or may not be implemented):
-- Add comments functionality
-- Implement post categories and tags
-- Add image upload for posts
-- Implement search functionality
-- Add rate limiting
-- Implement refresh tokens
-- Add email verification
-- Create comprehensive API documentation (Swagger/OpenAPI)
-- Add unit and integration tests
-- Implement caching with Redis
-
-## 📝 License
-
-This project is open source and available for learning purposes.
-
-## 🤝 Contributing
-
-This is a learning project, but feel free to fork and experiment with it!
-
-## ⚠️ Notes
-
-- This project was created for learning Docker deployment
-- Some features may be basic as the focus was on deployment
-- The live demo may be suspended due to Render's free tier limitations
+The project is not actively maintained and primarily serves as a reference for the concepts explored during development.
